@@ -8,7 +8,7 @@ const Header = () => {
     <header className={`${styles.header} container fluit`}>
       <div className={styles.headerWrapper}>
         <Link href={"/"} className={styles.logo}>
-          <FaPlayCircle /> NETFILMS
+          <FaPlayCircle /> CineVerse
         </Link>
         <nav className={styles.navigationMenu}>
           <Link href={"/movies"}>Movies</Link>
