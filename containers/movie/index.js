@@ -1,4 +1,3 @@
-import MoviePage from "@/app/movie/[id]/page";
 import FeaturedMovie from "@/components/featured-movie";
 import React from "react";
 

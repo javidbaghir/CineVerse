@@ -1,19 +1,38 @@
 import HomeContainer from "@/containers/home";
-import Movies from "@/mocks/movies.json";
+import {
+  getPopularMovie,
+  getTopRatedMovie,
+  getGenres,
+  getCategoryMoviesById,
+} from "@/service/moviesService";
 
-export default function Home({ params }) {
+async function Home({ params }) {
   let selectedCategory;
-  console.log(params?.category)
+  const topRatedPromise = getTopRatedMovie();
+  const popularMoviesPromise = getPopularMovie();
+  const genresList = getGenres();
 
-  if (params.category?.length > 0) {
-    selectedCategory = true;
+  const [
+    { results: topRated },
+    { results: popularMovies },
+    { genres: categories },
+  ] = await Promise.all([topRatedPromise, popularMoviesPromise, genresList]);
+
+  if (!!params.category?.length) {
+    const { results } = await getCategoryMoviesById(params.category[0]);
+    selectedCategory = results;
   }
   return (
     <HomeContainer
+      topRated={topRated}
+      popularMovies={popularMovies}
+      genres={categories}
       selectedCategory={{
         id: params?.category?.[0] ?? "",
-        movies: selectedCategory ? Movies.results?.slice(0, 6) : [],
+        movies: selectedCategory ? selectedCategory?.slice(0, 6) : [],
       }}
     />
   );
 }
+
+export default Home;

@@ -1,10 +1,10 @@
 import MovieContainer from "@/containers/movie";
 import React from "react";
-import Movies from "../../../mocks/movies.json";
 import { notFound } from "next/navigation";
+import { getMovieById } from "@/service/moviesService";
 
-const MoviePage = ({ params }) => {
-  const movieDetail = Movies.results.find((movie) => movie.id.toString() === params.id);
+async function MoviePage ({ params }) {
+  const movieDetail = await getMovieById(params.id)
 
   if(!movieDetail) {
     notFound()
