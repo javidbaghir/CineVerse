@@ -8,7 +8,11 @@ const interFontFamily = Inter({ subsets: ["latin"] });
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={interFontFamily.className}>
+    <head>
+      <title>Cineverse</title>
+    </head>
       <body className="container">
+
         <Header />
   
         <main>{children}</main>
